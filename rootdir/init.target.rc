@@ -120,3 +120,9 @@ service gsiff_daemon /system/bin/gsiff_daemon
     class late_start
     user system
     group qcom_oncrpc gps
+    
+# LMK
+on property:init.svc.bootanim=stopped
+    chmod 0664 /sys/module/lowmemorykiller/parameters/adj
+    chmod 0664 /sys/module/lowmemorykiller/parameters/minfree
+    write /sys/module/lowmemorykiller/parameters/minfree 12288,15360,18432,21504,24576,30720
