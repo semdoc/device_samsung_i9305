@@ -20,7 +20,7 @@
         "branch": "cm-12.1"
     },
     {
-        "repository": "NamelessRom/android_hardware_samsung",
+        "repository": "CyanogenMod/android_hardware_samsung",
         "target_path": "hardware/samsung",
         "branch": "cm-12.1"
     }
