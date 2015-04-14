@@ -6,7 +6,7 @@ on init
     mkdir /dev/pipes 0771 shell shell
 
 on post-fs-data
-    # MDM requirement
+    #MDM requirement
     mkdir /data/cp_log
     chmod 0775 /data/cp_log
     chown system radio /data/cp_log
@@ -40,8 +40,8 @@ on post-fs-data
     chown system radio /dev/block/platform/dw_mmc/by-name
     chmod 0775 /dev/block/platform/dw_mmc/by-name
 
-    #QCRIL
-    #Create QMUX deamon socket area
+    # QCRIL
+    # Create QMUX deamon socket area
     mkdir /dev/socket/qmux_radio 0777 radio radio
     chmod 2777 /dev/socket/qmux_radio
     mkdir /dev/socket/qmux_audio 0770 media audio
@@ -75,6 +75,10 @@ on post-fs-data
     restorecon /tombstones/qcks/efs2.bin
     restorecon /tombstones/qcks/efs3.bin
     restorecon /tombstones/qcks/temp.dump
+
+    # for AT distributor
+    chown system radio /sys/module/cpuidle_exynos4/parameters/enable_mask
+    chmod 0664 /sys/module/cpuidle_exynos4/parameters/enable_mask
 
     # Waketime fot fast dormancy
     chown system radio /sys/devices/platform/mdm_hsic_pm0/waketime
@@ -144,4 +148,9 @@ service qmuxd /system/bin/qmuxd
     class main
     user system
     group radio log audio bluetooth gps log
-
+    
+# LMK
+on property:init.svc.bootanim=stopped
+    chmod 0664 /sys/module/lowmemorykiller/parameters/adj
+    chmod 0664 /sys/module/lowmemorykiller/parameters/minfree
+    write /sys/module/lowmemorykiller/parameters/minfree 12288,15360,18432,21504,24576,30720

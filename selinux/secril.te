@@ -35,4 +35,3 @@ allow secril-daemon efs_file:dir { search };
 allow secril-daemon rild_exec:file { entrypoint read };
 allow secril-daemon qmuxd_socket:dir { write add_name remove_name search };
 allow secril-daemon qmuxd_socket:sock_file { create setattr unlink };
-
